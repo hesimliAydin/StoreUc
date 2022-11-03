@@ -32,18 +32,25 @@ namespace WindowsFormsApp4
         public string NameProduct
         {
             get { return nameTxtb.Text; }
-            set { nameTxtb.Text=value;  }
+            set { nameTxtb.Text = value; }
         }
 
         public string PriceProduct
         {
             get { return priceTxtb.Text; }
-            set { priceTxtb.Text=value; }
+            set { priceTxtb.Text = value; }
         }
+
+        public Image ImageProduct
+        {
+            get { return guna2PictureBox1.Image; }
+            set { guna2PictureBox1.Image = value; }
+        }
+
 
         private void label1_Click(object sender, EventArgs e)
         {
-           // label1.Text = "New Data";
+            // label1.Text = "New Data";
             MyEvent.Invoke(sender, e);
         }
 
@@ -51,6 +58,7 @@ namespace WindowsFormsApp4
         {
             _product.Name = NameProduct;
             _product.Price = double.Parse(PriceProduct);
+            _product.Image = ImageProduct;
             this.DialogResult = DialogResult.OK;
         }
 
@@ -59,5 +67,17 @@ namespace WindowsFormsApp4
             MyDataChangedEvent.Invoke(sender, e);
         }
 
+        private void guna2PictureBox1_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.ShowDialog();
+            guna2PictureBox1.ImageLocation = openFileDialog.FileName;
+            if (openFileDialog.FileName != String.Empty)
+            {
+                ImageProduct = guna2PictureBox1.Image;
+                MyDataChangedEvent.Invoke(sender, e);
+            }
+
+        }
     }
 }

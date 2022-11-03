@@ -117,6 +117,7 @@ namespace WindowsFormsApp4
             {
                 uc.Name = productForm.NameProduct;
                 uc.Price = double.Parse(productForm.PriceProduct);
+                uc.Image = productForm.ImageProduct;
             }
 
 
@@ -130,6 +131,7 @@ namespace WindowsFormsApp4
 
                 uc.Name = productForm.NameProduct;
                 uc.Price = double.Parse(productForm.PriceProduct);
+                uc.Image = productForm.ImageProduct;
             }
             catch { }
         }
