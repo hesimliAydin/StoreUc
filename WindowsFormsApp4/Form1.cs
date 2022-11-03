@@ -51,13 +51,13 @@ namespace WindowsFormsApp4
             productsPanel.MouseEnter += homePanel_MouseEnter;
             productsPanel.MouseLeave += homePanel_MouseLeave;
 
-           
+
             mainPanel.Controls.Add(homeUC);
         }
         public List<Product> Products { get; set; }
         HomeUC homeUC = new HomeUC();
 
-        
+
 
         private void homePanel_MouseEnter(object sender, EventArgs e)
         {
@@ -74,7 +74,7 @@ namespace WindowsFormsApp4
             this.Close();
         }
 
-        
+
 
         private void productsPanel_Click(object sender, EventArgs e)
         {
@@ -98,10 +98,11 @@ namespace WindowsFormsApp4
                 mainPanel.Controls.Add(productUC);
             }
         }
-        
+        ProductUC uc;
+        ProductForm productForm;
         private void ProductUC_DoubleClick(object sender, EventArgs e)
         {
-            var uc = sender as ProductUC;
+            uc = sender as ProductUC;
             var product = new Product
             {
                 Name = uc.Name,
@@ -109,12 +110,28 @@ namespace WindowsFormsApp4
                 Image = uc.Image
             };
 
-            ProductForm productForm=new ProductForm(product);
+            productForm = new ProductForm(product, dataChanged);
+            //productForm.MyDataChangedEvent = dataChanged;
             productForm.MyEvent = uc.MyProductChangeEvent;
-            productForm.ShowDialog();
+            if (productForm.ShowDialog() == DialogResult.OK)
+            {
+                uc.Name = productForm.NameProduct;
+                uc.Price = double.Parse(productForm.PriceProduct);
+            }
 
 
-           // MessageBox.Show(uc.Name);
+            // MessageBox.Show(uc.Name);
+        }
+
+        private void dataChanged(object sender, EventArgs e)
+        {
+            try
+            {
+
+                uc.Name = productForm.NameProduct;
+                uc.Price = double.Parse(productForm.PriceProduct);
+            }
+            catch { }
         }
 
         private void homeLbl_Click(object sender, EventArgs e)
